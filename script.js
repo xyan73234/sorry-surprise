@@ -440,11 +440,12 @@ async function downloadImage(index, img) {
 }
 const fingerprintBtn = document.getElementById("fingerprint-btn");
 const introPage = document.getElementById("page-intro");
+const musicToggle = document.getElementById("music-toggle");
 
 if (fingerprintBtn && introPage) {
   fingerprintBtn.addEventListener("click", () => {
-    if (window.startMusicFromUserTap) {
-      window.startMusicFromUserTap();
+    if (musicToggle) {
+      musicToggle.click();
     }
 
     fingerprintBtn.classList.add("scanner-unlocked");
@@ -454,6 +455,7 @@ if (fingerprintBtn && introPage) {
       showPage("apology");
     }, 700);
   });
+}
 }
 }
 const okayBtn = document.getElementById("okay-btn");
