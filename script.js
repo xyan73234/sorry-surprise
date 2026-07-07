@@ -177,33 +177,31 @@ function initStarfield() {
 function initMusic() {
   const music = document.getElementById("bg-music");
   const toggle = document.getElementById("music-toggle");
+  const fingerprintBtn = document.getElementById("fingerprint-btn");
+
   if (!music || !toggle) return;
 
-  let userEnabled = true;
+  music.volume = 0.35;
+  music.muted = false;
 
-  function tryPlay() {
-    if (!userEnabled) return;
-    music.volume = 0.35;
-    music.play().catch(() => {});
+  function playMusic() {
+    music.play()
+      .then(() => toggle.classList.remove("paused"))
+      .catch(() => {});
   }
 
-  document.addEventListener(
-  "pointerdown",
-  (event) => {
-    if (event.target.closest("#fingerprint-btn")) return;
-    tryPlay();
-  },
-  { once: true }
-);
+  if (fingerprintBtn) {
+    fingerprintBtn.addEventListener("pointerdown", playMusic, { once: true });
+    fingerprintBtn.addEventListener("touchstart", playMusic, { once: true });
+  }
+
   toggle.addEventListener("click", (event) => {
     event.stopPropagation();
+
     if (music.paused) {
-      userEnabled = true;
-      tryPlay();
-      toggle.classList.remove("paused");
+      playMusic();
     } else {
       music.pause();
-      userEnabled = false;
       toggle.classList.add("paused");
     }
   });
