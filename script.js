@@ -188,13 +188,13 @@ function initMusic() {
   }
 
   document.addEventListener(
-    "pointerdown",
-    () => {
-      tryPlay();
-    },
-    { once: true }
-  );
-
+  "pointerdown",
+  (event) => {
+    if (event.target.closest("#fingerprint-btn")) return;
+    tryPlay();
+  },
+  { once: true }
+);
   toggle.addEventListener("click", (event) => {
     event.stopPropagation();
     if (music.paused) {
