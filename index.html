@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>For You</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+		<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<canvas id="starfield" aria-hidden="true"></canvas>
+		<div class="sky-glow" aria-hidden="true"></div>
+		<div class="aurora aurora-one" aria-hidden="true"></div>
+		<div class="aurora aurora-two" aria-hidden="true"></div>
+
+		<audio id="bg-music" loop="" preload="auto">
+			<source src="audio/hate-that-i-made-you-love-me.mp3" type="audio/mpeg" />
+		</audio>
+
+		<button class="music-toggle" id="music-toggle" type="button" aria-label="Toggle background music">
+			<span class="music-icon music-icon-on" aria-hidden="true">♪</span>
+			<span class="music-icon music-icon-off" aria-hidden="true">♪</span>
+		</button>
+
+		<main class="app">
+			<!-- Intro Screen -->
+			<section class="page page-active" id="page-intro">
+				<div class="intro-content">
+					<button class="fingerprint-btn" id="fingerprint-btn" type="button" aria-label="Put your finger here">
+						<span class="scanner-ring"></span>
+						<span class="scanner-core"></span>
+					</button>
+
+					<h1 class="scanner-text headline">
+						Put your finger here
+					</h1>
+				</div>
+			</section>
+
+			<!-- Page 1: Apology -->
+			<section class="page" id="page-apology" data-page="1">
+				<div class="page-content">
+					<h1 class="headline">
+						Sorry for the one time,
+						<br>
+    Please don't block me again :(
+</h1>
+					</h1>
+					<div class="button-row page-controls">
+						<button class="btn btn-primary" id="okay-btn">it's okayy</button>
+						<button class="btn btn-secondary" id="maybe-btn">Maybe</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- Page 2: Compensation -->
+			<section class="page" id="page-compensation" data-page="2">
+				<div class="page-content">
+				
+					<h1 class="headline" id="compensation-title">
+						Here's the compensatiion :P
+					</h1>
+					<button class="arrow-btn page-controls" data-next="gallery" aria-label="Go to gallery">
+						<span class="arrow-label">tap me</span>
+						<span class="arrow-icon">→</span>
+					</button>
+				</div>
+			</section>
+
+			<!-- Page 3: Gallery -->
+			<section class="page" id="page-gallery" data-page="3">
+				<div class="gallery-header">
+					<h2 class="gallery-title">Tap to reveal, kaii :)</h2>
+					<p class="gallery-subtitle">
+						<span id="revealed-count">0</span> / 10 revealed
+					</p>
+				</div>
+
+				<div class="gallery" id="gallery"></div>
+
+				<p class="gallery-hint" id="gallery-hint">i have a bigggg crush on youu dont tell anybody else!</p>
+			</section>
+		</main>
+
+		<script src="script.js"></script>
+	</body>
+</html>
