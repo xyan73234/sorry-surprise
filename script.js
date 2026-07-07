@@ -438,14 +438,30 @@ const fingerprintBtn = document.getElementById("fingerprint-btn");
 const introPage = document.getElementById("page-intro");
 
 if (fingerprintBtn && introPage) {
-  fingerprintBtn.addEventListener("click", () => {
+  fingerprintBtn.addEventListener("pointerdown", () => {
+
+    const music = document.getElementById("bg-music");
+    const toggle = document.getElementById("music-toggle");
+
+    if (music) {
+        music.volume = 0.35;
+        music.muted = false;
+
+        music.play().then(() => {
+            if (toggle) {
+                toggle.classList.remove("paused");
+            }
+        }).catch(() => {});
+    }
+
     fingerprintBtn.classList.add("scanner-unlocked");
 
     setTimeout(() => {
-      introPage.classList.remove("page-active");
-      showPage("apology");
+        introPage.classList.remove("page-active");
+        showPage("apology");
     }, 700);
-  });
+
+});
 }
 const okayBtn = document.getElementById("okay-btn");
 const maybeBtn = document.getElementById("maybe-btn");
