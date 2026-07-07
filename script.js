@@ -175,31 +175,38 @@ function initStarfield() {
 }
 
 function initMusic() {
+  function initMusic() {
   const music = document.getElementById("bg-music");
   const toggle = document.getElementById("music-toggle");
-  const fingerprintBtn = document.getElementById("fingerprint-btn");
 
   if (!music || !toggle) return;
 
   music.volume = 0.35;
   music.muted = false;
+  music.load();
 
-  function playMusic() {
-    music.play()
-      .then(() => toggle.classList.remove("paused"))
-      .catch(() => {});
-  }
+  window.startMusicFromUserTap = function () {
+    music.volume = 0.35;
+    music.muted = false;
 
-  if (fingerprintBtn) {
-  fingerprintBtn.addEventListener("touchend", playMusic, { once: true });
-  fingerprintBtn.addEventListener("click", playMusic, { once: true });
-}
+    const promise = music.play();
+
+    if (promise) {
+      promise
+        .then(() => {
+          toggle.classList.remove("paused");
+        })
+        .catch(() => {
+          toggle.classList.add("paused");
+        });
+    }
+  };
 
   toggle.addEventListener("click", (event) => {
     event.stopPropagation();
 
     if (music.paused) {
-      playMusic();
+      window.startMusicFromUserTap();
     } else {
       music.pause();
       toggle.classList.add("paused");
@@ -209,7 +216,6 @@ function initMusic() {
   music.addEventListener("play", () => toggle.classList.remove("paused"));
   music.addEventListener("pause", () => toggle.classList.add("paused"));
 }
-
 const YOUR_IMAGE_NAMES = Array.from({ length: TOTAL_IMAGES }, (_, i) => `image-${i + 1}.jpg`);
 const PLACEHOLDER_NAMES = Array.from({ length: TOTAL_IMAGES }, (_, i) => `placeholder-${i + 1}.svg`);
 
@@ -437,29 +443,18 @@ const introPage = document.getElementById("page-intro");
 
 if (fingerprintBtn && introPage) {
   fingerprintBtn.addEventListener("click", () => {
-
-    const music = document.getElementById("bg-music");
-    const toggle = document.getElementById("music-toggle");
-
-    if (music) {
-        music.volume = 0.35;
-        music.muted = false;
-
-        music.play().then(() => {
-            if (toggle) {
-                toggle.classList.remove("paused");
-            }
-        }).catch(() => {});
+    if (window.startMusicFromUserTap) {
+      window.startMusicFromUserTap();
     }
 
     fingerprintBtn.classList.add("scanner-unlocked");
 
     setTimeout(() => {
-        introPage.classList.remove("page-active");
-        showPage("apology");
+      introPage.classList.remove("page-active");
+      showPage("apology");
     }, 700);
-
-});
+  });
+}
 }
 const okayBtn = document.getElementById("okay-btn");
 const maybeBtn = document.getElementById("maybe-btn");
