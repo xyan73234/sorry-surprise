@@ -191,9 +191,9 @@ function initMusic() {
   }
 
   if (fingerprintBtn) {
-    fingerprintBtn.addEventListener("pointerdown", playMusic, { once: true });
-    fingerprintBtn.addEventListener("touchstart", playMusic, { once: true });
-  }
+  fingerprintBtn.addEventListener("touchend", playMusic, { once: true });
+  fingerprintBtn.addEventListener("click", playMusic, { once: true });
+}
 
   toggle.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -436,7 +436,7 @@ const fingerprintBtn = document.getElementById("fingerprint-btn");
 const introPage = document.getElementById("page-intro");
 
 if (fingerprintBtn && introPage) {
-  fingerprintBtn.addEventListener("pointerdown", () => {
+  fingerprintBtn.addEventListener("click", () => {
 
     const music = document.getElementById("bg-music");
     const toggle = document.getElementById("music-toggle");
